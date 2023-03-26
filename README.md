@@ -48,7 +48,7 @@ import (
 
 func main() {
     mysteryWord := "abracadabra"
-    isValid, err := words.IsValidWord(nil)
+    isValid, err := words.IsValidWord(mysteryWord, nil)
     if err != nil {
         panic(err)
     }
