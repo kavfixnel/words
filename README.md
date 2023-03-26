@@ -20,7 +20,7 @@ import (
 )
 
 func main() {
-    // Get a map[string]struct{} object of all known system words
+    // Get a map[string]struct{} object of all words known by the system
     wordMap, err := words.NewWordMap(nil)
     if err != nil {
         panic(err)
@@ -28,7 +28,7 @@ func main() {
 
     fmt.Println(len(wordMap))
 
-    // Get a []string of all known system words
+    // Get a []string of all known system words by the system
     wordList, err := words.NewWordList(nil)
     if err != nil {
         panic(err)
