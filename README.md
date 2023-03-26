@@ -26,7 +26,7 @@ func main() {
         panic(err)
     }
 
-    fmt.Println(wordMap)
+    fmt.Println(len(wordMap))
 
     // Get a []string of all known system words
     wordList, err := words.NewWordList(nil)
@@ -34,8 +34,13 @@ func main() {
         panic(err)
     }
 
-    fmt.Println(wordList)
+    fmt.Println(len(wordList))
 }
+```
+```bash
+~/examples/words ❯ go run main.go
+235976
+235976
 ```
 
 2. Check if words are valid and known by the system
@@ -61,5 +66,27 @@ func main() {
     }
 
     fmt.Printf("%s is%s a valid word\n", mysteryWord, modifier)
+
+    // Ability to check variations of words
+    mysteryWord = "ÄbraCADabra"
+	isValid, err = words.IsValidWord(mysteryWord, &words.IsValidWordOptions{
+		IgnoreCase:       true,
+		IgnoreDiacritics: true,
+	})
+    if err != nil {
+        panic(err)
+    }
+
+    modifier = ""
+    if !isValid {
+        modifier = " not"
+    }
+
+    fmt.Printf("%s is%s a valid word\n", mysteryWord, modifier)
 }
+```
+```bash
+~/examples/words ❯ go run main.go   
+abracadabra is a valid word
+ÄbraCADabra is a valid word
 ```
