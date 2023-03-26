@@ -1,6 +1,8 @@
 # Words
 A golang library to interface with system dictionaries and word lists.
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/kavfixnel/words.svg)](https://pkg.go.dev/github.com/kavfixnel/words)
+
 ### Word of caution
 Right now the system has only been tested with MacOS, though according to [The Unix word dictionary](https://en.wikipedia.org/wiki/Words_(Unix))
 this library should also function on other unix systems.
