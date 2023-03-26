@@ -12,6 +12,8 @@ There are 2 main functionalities in this library:
 package main
 
 import (
+    "fmt"
+
     "github.com/kavfixnel/words"
 )
 
@@ -39,6 +41,8 @@ func main() {
 package main
 
 import (
+    "fmt"
+
     "github.com/kavfixnel/words"
 )
 
