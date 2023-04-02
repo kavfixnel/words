@@ -101,6 +101,20 @@ func TestNewWordMap(t *testing.T) {
 
 		assert.Contains(t, defaultLanguageMap, "additionalWord1")
 	})
+
+	t.Run("AdditionalWordFile that does not exist does not throw error", func(t *testing.T) {
+		defaultLanguageMap, err := NewWordMap(&NewWordMapOptions{
+			baseOptions{
+				AdditionalWordFiles: []string{
+					"tests/additionalWordFile",
+					"tests/additionalWordFileDoesNotExist",
+				},
+			},
+		})
+		assert.NoError(t, err)
+
+		assert.Contains(t, defaultLanguageMap, "additionalWord1")
+	})
 }
 
 func TestNewWordList(t *testing.T) {
@@ -198,6 +212,13 @@ func TestNewWordList(t *testing.T) {
 }
 
 func TestIsValidWord(t *testing.T) {
+	t.Run("A valid word returns true with nil Options", func(t *testing.T) {
+		isValid, err := IsValidWord("Abba", nil)
+		assert.NoError(t, err)
+
+		assert.True(t, isValid)
+	})
+
 	t.Run("A valid word returns true", func(t *testing.T) {
 		isValid, err := IsValidWord("Abba", &IsValidWordOptions{
 			baseOptions: baseOptions{
@@ -263,5 +284,31 @@ func TestIsValidWord(t *testing.T) {
 		assert.NoError(t, err)
 
 		assert.True(t, defaultLanguageMap)
+	})
+
+	t.Run("Local Dictionary gets included and used", func(t *testing.T) {
+		localDictionaryLocations = []string{"tests/customWords"}
+
+		defaultLanguageMap, err := IsValidWord("isthisarealword", &IsValidWordOptions{
+			baseOptions: baseOptions{
+				IncludeLocalDictionary: true,
+			},
+		})
+		assert.NoError(t, err)
+
+		assert.True(t, defaultLanguageMap)
+	})
+
+	t.Run("Local Dictionary gets included and used", func(t *testing.T) {
+		isValidWord, err := IsValidWord("thisisnotavalidword", &IsValidWordOptions{
+			baseOptions: baseOptions{
+				AdditionalWordFiles: []string{
+					"tests/additionalWordFileDoesNotExist",
+				},
+			},
+		})
+		assert.NoError(t, err)
+
+		assert.False(t, isValidWord)
 	})
 }
