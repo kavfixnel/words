@@ -3,6 +3,7 @@ package words
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"os"
 	"sort"
@@ -182,7 +183,7 @@ func IsValidWord(word string, options *IsValidWordOptions) (bool, error) {
 
 		wordsFile, err := os.Open(wordListLocation)
 		if err != nil {
-			return false, err
+			return false, fmt.Errorf("could not open file %s: %w", wordListLocation, err)
 		}
 
 		scanner := bufio.NewScanner(wordsFile)
